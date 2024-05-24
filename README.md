@@ -4,10 +4,8 @@ frida-universal script
 1. Bypass Root Detection
 This script aims to bypass common root detection checks implemented in Android applications.
 
-javascript
-Copy code
-// Bypass Root Detection
 
+``` javascript
 Java.perform(function () {
     var RootPackages = ["com.noshufou.android.su", "com.thirdparty.superuser", "eu.chainfire.supersu", "com.koushikdutta.superuser", "com.zachspong.temprootremovejb", "com.ramdroid.appquarantine"];
     var RootBinaries = ["su", "busybox", "supersu"];
@@ -44,14 +42,13 @@ Java.perform(function () {
     };
 
     console.log('Root detection bypass script loaded');
-});
+});```
+
 2. Intercept and Log Function Calls
 This script intercepts method calls, logs the arguments passed to the methods, and prints the return values.
 
-javascript
-Copy code
-// Intercept and Log Function Calls
 
+``` javascript
 Java.perform(function () {
     var targetClass = "com.example.app.TargetClass";  // Replace with the target class name
     var targetMethod = "targetMethod";  // Replace with the target method name
@@ -65,12 +62,13 @@ Java.perform(function () {
     };
 
     console.log('Function call interception script loaded');
-});
+});```
+
 3. Hook and Modify Method Returns
 This script hooks methods and modifies their return values.
 
-javascript
-Copy code
+```javascript
+
 // Hook and Modify Method Returns
 
 Java.perform(function () {
@@ -90,12 +88,13 @@ Java.perform(function () {
     };
 
     console.log('Method return modification script loaded');
-});
+});```
+
 4. Dump All Loaded Classes and Methods
 This script lists all loaded classes and their methods, which can be useful for reconnaissance.
 
-javascript
-Copy code
+``` javascript
+
 // Dump All Loaded Classes and Methods
 
 Java.perform(function () {
@@ -113,12 +112,13 @@ Java.perform(function () {
     });
 
     console.log('Loaded classes and methods dump script loaded');
-});
+});```
+
 5. Bypass SSL Pinning (Alternate Method)
 This script bypasses SSL pinning by replacing the TrustManager.
 
-javascript
-Copy code
+```javascript
+
 // Alternate SSL Pinning Bypass
 
 Java.perform(function () {
@@ -134,12 +134,13 @@ Java.perform(function () {
     };
 
     console.log('Alternate SSL pinning bypass script loaded');
-});
+});```
+
 6. Bypass Secure Flag (Prevent Screenshots)
 This script disables the FLAG_SECURE flag to allow screenshots and screen recording.
 
-javascript
-Copy code
+``` javascript
+
 // Bypass Secure Flag
 
 Java.perform(function () {
@@ -153,12 +154,13 @@ Java.perform(function () {
     };
 
     console.log('Secure flag bypass script loaded');
-});
+});````
+
 7. Inspect HTTP Requests and Responses
 This script hooks into the HTTP request and response methods to log the data being sent and received.
 
-javascript
-Copy code
+```javascript
+
 // Inspect HTTP Requests and Responses
 
 Java.perform(function () {
@@ -181,5 +183,5 @@ Java.perform(function () {
     };
 
     console.log('HTTP request and response inspection script loaded');
-});
+});```
 These scripts provide a broad range of capabilities for inspecting and modifying the behavior of Android applications during security testing. Customize them as needed for specific targets and scenarios.
