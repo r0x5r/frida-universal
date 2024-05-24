@@ -1,11 +1,22 @@
-# frida-universal
-frida-universal script
+markdown
+Copy code
+# Universal Frida Scripts for Security Testing
 
-1. Bypass Root Detection
+This repository contains a collection of universal Frida scripts that can be used for security testing of Android applications. These scripts target common security mechanisms and functionalities in Android applications.
+
+## Disclaimer
+
+Bypassing security mechanisms and intercepting traffic should only be done in a lawful manner, with explicit permission from the application owner or within a controlled environment for security testing purposes.
+
+## Scripts
+
+### 1. Bypass Root Detection
+
 This script aims to bypass common root detection checks implemented in Android applications.
 
+```bash
+// Bypass Root Detection
 
-``` javascript
 Java.perform(function () {
     var RootPackages = ["com.noshufou.android.su", "com.thirdparty.superuser", "eu.chainfire.supersu", "com.koushikdutta.superuser", "com.zachspong.temprootremovejb", "com.ramdroid.appquarantine"];
     var RootBinaries = ["su", "busybox", "supersu"];
@@ -42,18 +53,22 @@ Java.perform(function () {
     };
 
     console.log('Root detection bypass script loaded');
-});```
+});
+```
 
-2. Intercept and Log Function Calls
+
+ 2. Intercept and Log Function Calls
 This script intercepts method calls, logs the arguments passed to the methods, and prints the return values.
 
 
-``` javascript
+```bash
+// Intercept and Log Function Calls
+
 Java.perform(function () {
     var targetClass = "com.example.app.TargetClass";  // Replace with the target class name
     var targetMethod = "targetMethod";  // Replace with the target method name
 
-    var TargetClass = Java.use(targetClass);
+var TargetClass = Java.use(targetClass);
     TargetClass[targetMethod].overload().implementation = function () {
         console.log('Intercepted ' + targetMethod + ' called with arguments: ' + JSON.stringify(arguments));
         var returnValue = this[targetMethod].apply(this, arguments);
@@ -61,39 +76,38 @@ Java.perform(function () {
         return returnValue;
     };
 
-    console.log('Function call interception script loaded');
-});```
-
-3. Hook and Modify Method Returns
+console.log('Function call interception script loaded');
+});
+```
+# 3. Hook and Modify Method Returns
 This script hooks methods and modifies their return values.
 
-```javascript
 
+```bash
 // Hook and Modify Method Returns
 
 Java.perform(function () {
     var targetClass = "com.example.app.TargetClass";  // Replace with the target class name
     var targetMethod = "targetMethod";  // Replace with the target method name
 
-    var TargetClass = Java.use(targetClass);
+var TargetClass = Java.use(targetClass);
     TargetClass[targetMethod].overload().implementation = function () {
         var returnValue = this[targetMethod].apply(this, arguments);
         console.log('Original return value: ' + returnValue);
 
-        // Modify the return value
+// Modify the return value
         returnValue = "ModifiedReturnValue";  // Replace with the desired return value
         console.log('Modified return value: ' + returnValue);
-
         return returnValue;
     };
-
     console.log('Method return modification script loaded');
-});```
+});
 
+```
 4. Dump All Loaded Classes and Methods
 This script lists all loaded classes and their methods, which can be useful for reconnaissance.
 
-``` javascript
+```javascript
 
 // Dump All Loaded Classes and Methods
 
@@ -112,13 +126,13 @@ Java.perform(function () {
     });
 
     console.log('Loaded classes and methods dump script loaded');
-});```
+});
+```
 
 5. Bypass SSL Pinning (Alternate Method)
 This script bypasses SSL pinning by replacing the TrustManager.
 
-```javascript
-
+```bash
 // Alternate SSL Pinning Bypass
 
 Java.perform(function () {
@@ -134,12 +148,13 @@ Java.perform(function () {
     };
 
     console.log('Alternate SSL pinning bypass script loaded');
-});```
+});
+```
 
 6. Bypass Secure Flag (Prevent Screenshots)
 This script disables the FLAG_SECURE flag to allow screenshots and screen recording.
 
-``` javascript
+```bash
 
 // Bypass Secure Flag
 
@@ -154,13 +169,13 @@ Java.perform(function () {
     };
 
     console.log('Secure flag bypass script loaded');
-});````
+});
+```
 
 7. Inspect HTTP Requests and Responses
 This script hooks into the HTTP request and response methods to log the data being sent and received.
 
-```javascript
-
+```bash
 // Inspect HTTP Requests and Responses
 
 Java.perform(function () {
@@ -183,5 +198,28 @@ Java.perform(function () {
     };
 
     console.log('HTTP request and response inspection script loaded');
-});```
-These scripts provide a broad range of capabilities for inspecting and modifying the behavior of Android applications during security testing. Customize them as needed for specific targets and scenarios.
+});
+```
+
+usage
+Install Frida:
+Ensure you have Frida installed on your system. You can install it using pip:
+
+
+pip install frida-tools
+Run the Script:
+Execute the script on the target application using Frida:
+
+
+frida -U -f <package_name> -l <script_name>.js --no-pause
+Replace <package_name> with the package name of the target Android application and <script_name> with the name of the script file.
+
+Contributing
+Contributions are welcome! Please submit a pull request or open an issue to discuss improvements or new features.
+
+License
+This project is licensed under the MIT License.
+
+
+This `README.md` file includes all the scripts and instructions for using them, making it easy for others to understand and utilize the provided Frida scripts.
+
